@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title><%= @getPreparedTitle() %></title>
+    <meta name="description" content="<%= @getPreparedDescription() %>" />
+    <meta name="keywords" content="<%= @getPreparedKeywords() %>" />
+    <meta name="author" content="<%= @site.author or '' %>" />
+
+    <!-- Output DocPad produced meta elements -->
+    <%- @getBlock('meta').toHTML() %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icons/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icons/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icons/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/icons/apple-touch-icon-57-precomposed.png">
+
+    <!-- Shims: IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+        <script async src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->    
+
+    <!-- Styles -->
+    <%- @getBlock('styles').add(@site.styles).add(@document.styles).add(@styles).toHTML() %>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" id="mainnav">
+      <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/" id='name'>badhri sampathkumar</a>
+        </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="navbar-collapse-1">      
+            <ul class="nav navbar-nav">
+                <li><a href="//www.flickr.com/photos/india_ink"><i class="fa fa-camera"></i></a></li>
+                <li><a href="//www.github.com/bsampath"><i class="fa fa-github"></i></a></li>
+                <li><a href="//www.linkedin.com/in/badhrisampathkumar"><i
+                      class="fa fa-linkedin-square"></i></a></li>
+                <li><a href="/archives/"><i class="fa fa-archive"></i></a></li>
+            </ul>             
+            <form class="navbar-form navbar-right hidden-xs" role="search" action="http://google.com/search"
+                  method="get">
+                <div class="form-group">
+                    <input type="search" name="q" class="form-control" placeholder="Search">
+                    <input type="hidden" name="q" value="site:badhri.net">
+                </div>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div>
+    </nav>        
+
+    <div class="container">
+        <!-- Content -->
+        <%- @content %>        
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="disclaimer">&copy; Badhri Sampathkumar 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- JavaScript -->
+
+    <!-- jQuery via Google + local fallback, see h5bp.com -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\/script>')</script>    
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>    
+
+</body>
+
+</html>

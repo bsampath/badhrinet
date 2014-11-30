@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<article class="preview">
+    <!-- the actual blog post: title/author/date/content -->
+    <hr>
+    <h1 class="post-title"><%= @document.title %></h1>
+    <h4 class="post-subtitle"><%= @document.subtitle %></h4>
+    <hr>
+    <p class="post-date"><%= @document.humanDate %></p>
+
+	<%- @content %>
+
+	<% if @document.tags?: %>
+		<hr>    
+		<p class="post-tags">
+			Posted in: <%- ("<a href='#'>#{tag}</a>" for tag in @document.tags).join(', ') %>
+		</p>
+    <% end %>
+    <hr>                          
+    <div id="disqus_thread"></div>
+    <%- @partial('disqus') if @document.comments and @disqusShortName %> 
+</article>

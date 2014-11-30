@@ -12,30 +12,44 @@ docpadConfig = {
 		# Specify some site properties
 		site:
 			# The production url of our website
-			url: "http://badhri.net"
+			url: "http://website.com"
+
+			# Here are some old site urls that you would like to redirect from
+			oldUrls: [
+				'www.website.com',
+				'website.herokuapp.com'
+			]
 
 			# The default title of our website
-			title: "Badhri Sampathkumar"
+			title: "Your Website"
+
+			# The website description (for SEO)
+			description: """
+				When your website appears in search results in say Google, the text here will be shown underneath your website's title.
+				"""
+
+			# The website keywords (for SEO) separated by commas
+			keywords: """
+				place, your, website, keywoards, here, keep, them, related, to, the, content, of, your, website
+				"""
 
 			# The website author's name
-			author: "Badhri Sampathkumar"
+			author: "Your Name"
 
 			# The website author's email
-			email: "me@badhri.net"
+			email: "your@email.com"
 
 			# Styles
-			styles: [    		
-    			"//fonts.googleapis.com/css?family=Ubuntu"
-				"//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
-				"//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
-				"/styles/custom.css"
+			styles: [
+				"/styles/twitter-bootstrap.css"
+				"/styles/style.css"
 			]
 
 			# Scripts
 			scripts: [
 				"//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
 				"//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"
-				"//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"
+				"/vendor/twitter-bootstrap/dist/js/bootstrap.min.js"
 				"/scripts/script.js"
 			]
 
@@ -65,28 +79,6 @@ docpadConfig = {
 			# Merge the document keywords with the site keywords
 			@site.keywords.concat(@document.keywords or []).join(', ')
 
-		getCuttedContent: (content) ->            
-			i = content.search('<!-- Read more -->')
-			if i >= 0
-				content[0..i-1]                
-			else
-				content
-
-		hasReadMore: (content) ->
-			content.search('<!-- Read more -->') >= 0
-
-		getFormattedDate: (date) ->
-			timeStamp = [date.getFullYear(), (date.getMonth() + 1), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()].join(" ")
-			RE_findSingleDigits = /\b(\d)\b/g			
-			timeStamp = timeStamp.replace( RE_findSingleDigits, "0$1" )
-			timeStamp.replace /\s/g, ""
-			timeStamp		
-
-		getPageUrlWithHostname: ->
-			"#{@site.url}#{@document.url}"
-
-		# Discus.com settings
-		disqusShortName: 'badhri-net'
 
 	# =================================
 	# Collections
@@ -96,46 +88,24 @@ docpadConfig = {
 		pages: (database) ->
 			database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
 
-		posts: ->
-			@getCollection('documents').findAllLive({relativeDirPath: 'posts'}, [date: -1])
-
-	environments:
-		development:
-			collections:
-				pages: (database) ->
-					database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
-
-				posts: ->
-					@getCollection('documents').findAllLive({relativeDirPath: {'$in' : ['posts', 'drafts']}}, [relativeDirPath: 1,  date: -1])
+		posts: (database) ->
+			database.findAllLive({tags:$has:'post'}, [date:-1])
 
 
 	# =================================
 	# Plugins
 
 	plugins:
-		moment:
-			formats: [
-				{raw: 'date', format: 'MMMM Do YYYY', formatted: 'humanDate'}
-				{raw: 'date', format: 'YYYY-MM-DD', formatted: 'computerDate'}
-			]			
-		tags:
-			extension: '.html.eco'
-			injectDocumentHelper: (document) ->
-				document.setMeta(
-					layout: 'default'
-					styles: '/styles/blog-home.css'
-					data: """
-						<%- @partial('abstract-list', {collection: @getFiles(tags: $has: @document.tag)}) %>
-					"""
-				)
-		cleanurls:
-			trailingSlashes: true
-		dateurls:
-			cleanurl: true
-			trailingSlashes: true
-			keepOriginalUrls: false
-			collectionName: 'posts'
-			dateIncludesTime: true
+		downloader:
+			downloads: [
+				{
+					name: 'Twitter Bootstrap'
+					path: 'src/files/vendor/twitter-bootstrap'
+					url: 'https://codeload.github.com/twbs/bootstrap/tar.gz/master'
+					tarExtractClean: true
+				}
+			]
+
 
 	# =================================
 	# DocPad Events

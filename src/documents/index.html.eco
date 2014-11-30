@@ -1,0 +1,46 @@
+---
+layout: 'default'
+title: ''
+isPaged: true
+pagedCollection: 'posts'
+pageSize: 2
+---
+
+<% for document in @getCollection('posts').toJSON()[@document.page.startIdx...@document.page.endIdx]: %>
+    <section class="preview">
+        <hr>
+        <h1 class="post-title"><%= document.title %></h1>                   
+        <hr>
+        <p class="post-date"><%= document.humanDate %></p>                                      
+        <div class="post-content">
+            <%- @getCuttedContent(String(document.contentRenderedWithoutLayouts)) %>
+        </div>
+        <% if document.tags?: %>
+            <p class="post-tags">
+                Posted in: <%- ("<a href='/tags/#{tag}'>#{tag}</a>" for tag in document.tags).join(', ') %>
+            </p>
+        <% end %>        
+        <a class="btn btn-primary" href="<%= document.url %>">
+            Read More <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>        
+    </section>
+<% end %>
+
+<div class="row">
+    <div class="col-lg-12">  
+        <ul class="pager">
+            <!-- Previous Page Button -->
+            <% unless @hasPrevPage(): %>
+                <li class="previous disabled"><a href="#">&larr; Newer</a></li>
+            <% else: %>
+                <li class="previous"><a href="<%= @getPrevPage() %>">&larr; Newer</a></li>
+            <% end %>
+
+            <% unless @hasNextPage(): %>                
+                <li class="next disabled"><a href="#">Older &rarr;</a></li>                
+            <% else: %>
+                <li class="next"><a href="<%= @getNextPage() %>">Older &rarr;</a></li>                            
+            <% end %>            
+        </ul>
+    </div>
+</div>
