@@ -171,10 +171,18 @@ article, section.preview  {
 }
 
 .abstract-title {
- margin-left: 200px;
- font-size: 20px;
- font-weight: 100;
- line-height: 30px;
+  margin-left: 200px;
+  font-size: 20px;
+  font-weight: 100;
+  line-height: 30px;
+}
+
+.abstract-subtitle {
+  color: #95a5a6;
+  text-transform: lowercase;
+  margin-left: 200px;
+  font-weight: 100;
+  line-height: 30px;
 }
 
 .abstract-tags {

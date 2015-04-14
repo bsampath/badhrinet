@@ -1,3 +1,6 @@
 node_modules/
 out/
+prod/
 src/documents/drafts
+src/documents/posts
+npm-debug.log

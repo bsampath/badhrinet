@@ -9,6 +9,7 @@
         <% end %>
         <div class="abstract-date"><%= date.format("MMM D") %></div>
         <div class="abstract-title"><a href="<%= document.url %>"><%= document.title %></a></div>
+        <div class="abstract-subtitle"><%= document.subtitle %></div>
         <% if document.tags?: %>
         <div class="abstract-tags">
             Posted In: <%- ("<a href='/tags/#{tag}'>#{tag}</a>" for tag in document.tags).join(', ') %>
