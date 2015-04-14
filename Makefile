@@ -16,7 +16,7 @@ list-bucket:
 	s3cmd ls $(bucket)
 
 sync:
-	s3cmd sync  prod/  s3://badhri.net/
+	s3cmd sync  prod/ --exclude 'drafts/*' --delete-removed s3://badhri.net/
 
 help:
 	@echo list-bucket, prod, dev, clean, run, help

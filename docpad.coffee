@@ -107,6 +107,13 @@ docpadConfig = {
 
 				posts: ->
 					@getCollection('documents').findAllLive({relativeDirPath: {'$in' : ['posts', 'drafts']}}, [relativeDirPath: 1,  date: -1])
+		production:
+			collections:
+				pages: (database) ->
+					database.findAllLive({pageOrder: $exists: true}, [pageOrder:1,title:1])
+
+				posts: ->
+					@getCollection('documents').findAllLive({relativeDirPath: {'$in' : ['posts']}}, [relativeDirPath: 1,  date: -1])
 
 
 	# =================================
